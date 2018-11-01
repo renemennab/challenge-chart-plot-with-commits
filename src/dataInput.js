@@ -15,15 +15,15 @@ class dataInput extends Component {
 
 	//logStateHandler = () => console.log(this.state.data);
 	logStateHandler = () => {
-		let properties = this.state.data.split(', ');
-		let object = {};
-		properties.forEach(function(property) {
-			let tup = property.split(':');
-			//let toS = String(tup[1]);
-			//console.log(tup[1]);
-			object[tup[0]] = tup[1];
+		let textToArray = this.state.data.split(', ');
+		let jsObject = {};
+		textToArray.forEach(function(textObject) {
+			let objAsArray = textObject.split(':');
+			//let toS = String(objAsArray[1]);
+			//console.log(objAsArray[1]);
+			jsObject[objAsArray[0]] = objAsArray[1];
 		});
-		console.log(object);
+		console.log(jsObject);
 		//console.log(String('2'));
 	};
 
