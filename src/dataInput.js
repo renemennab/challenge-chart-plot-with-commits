@@ -9,7 +9,6 @@ class dataInput extends Component {
 
 	wordCounterHandler = event => {
 		this.setState({
-			//numOfCar: event.target.value.length,
 			data: event.target.value
 		});
 	};
@@ -31,7 +30,4 @@ class dataInput extends Component {
 	}
 }
 
-//<Button/>
 export default dataInput;
-
-//{JSON.stringify(this.state.data)}
