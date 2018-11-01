@@ -25,16 +25,19 @@ class dataInput extends Component {
 	render() {
 		return (
 			<div className="App">
-				<input
-					type="text"
-					onChange={event => this.wordCounterHandler(event)}
-					value={this.state.data}
-				/>
-				<p>{JSON.stringify(this.state.data)}</p>
-				<button onClick={this.logStateHandler}>log state</button>
-				<button onClick={this.extractDataHandler}>
-					extract data types
-				</button>
+				<form>
+					<input
+						className="dataInput"
+						type="text"
+						onChange={event => this.wordCounterHandler(event)}
+						value={this.state.data}
+					/>
+					<p>{JSON.stringify(this.state.data)}</p>
+					<button onClick={this.logStateHandler}>log state</button>
+					<button type="button" onClick={this.extractDataHandler}>
+						extract data types
+					</button>
+				</form>
 			</div>
 		);
 	}
