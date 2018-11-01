@@ -4,8 +4,7 @@ import React, { Component } from 'react';
 
 class dataInput extends Component {
 	state = {
-		data: { rene: 2 },
-		data2: ['rene', 2, { rene: 2 }]
+		data: []
 	};
 
 	wordCounterHandler = event => {
@@ -14,6 +13,8 @@ class dataInput extends Component {
 			data: event.target.value
 		});
 	};
+
+	logStateHandler = () => console.log(this.state);
 
 	render() {
 		return (
@@ -24,6 +25,7 @@ class dataInput extends Component {
 					value={this.state.data}
 				/>
 				<p>{JSON.stringify(this.state.data)}</p>
+				<button onClick={this.logStateHandler}>log state</button>
 			</div>
 		);
 	}
