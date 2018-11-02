@@ -79,18 +79,20 @@ class inputIn extends Component {
 		//what is to be rendered if state is span
 		let span = (
 			<div>
-				<h2>i am span</h2>
-				<input type="text" name="begin" />
-				<input type="text" name="end" />
+				<input type="number" name="begin" />
+				<input type="number" name="end" />
 			</div>
 		);
 		//what is to be rendered if state is data
-		let data = this.state.currentSelect.map(sl => (
-			<div>
-				<label htmlFor={sl}>{sl}</label>
-				<input type="text" name={sl} />
-			</div>
-		));
+		//currentSelect is concatenaded with currentGroup to map the product and return the labels according to the inputs from start
+		let data = this.state.currentSelect
+			.concat(this.state.currentGroup)
+			.map((sl, i) => (
+				<div key={sl + sl[i]}>
+					<label htmlFor={sl}>{sl}</label>
+					<input type="text" name={sl} />
+				</div>
+			));
 
 		switch (this.state.temporaryType) {
 			case 'start':
@@ -112,7 +114,7 @@ class inputIn extends Component {
 				<select
 					name="types"
 					onChange={this.handleChange}
-					value={this.state.type}>
+					value={this.state.temporaryType}>
 					<option value="type">type</option>
 					<option value="start">start</option>
 					<option value="span">span</option>
