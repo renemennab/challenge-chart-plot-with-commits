@@ -8,7 +8,8 @@ class inputIn extends Component {
 		currentGroup: [],
 		type: [],
 		selects: [],
-		groups: []
+		groups: [],
+		inputs: {}
 	};
 
 	//sets the state to the selected type of data to render the other fields accordingly
@@ -88,7 +89,7 @@ class inputIn extends Component {
 		let data = this.state.currentSelect
 			.concat(this.state.currentGroup)
 			.map((sl, i) => (
-				<div key={sl + sl[i]}>
+				<div key={sl + new Date().getTime()}>
 					<label htmlFor={sl}>{sl}</label>
 					<input type="text" name={sl} />
 				</div>
