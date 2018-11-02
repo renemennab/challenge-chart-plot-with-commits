@@ -22,27 +22,29 @@ class inputIn extends Component {
 	handleChangeSection = event => {
 		let removeQuotes = event.target.value.replace(/'/g, '');
 
-		let clearedSpaces = removeQuotes.trim().replace(/\s/g, '');
+		let removeSpaces = removeQuotes.trim().replace(/\s/g, '');
 
-		let textToArray = clearedSpaces.split(',');
+		let textToArray = removeSpaces.split(',');
 
 		this.setState({
 			currentSelect: textToArray
 		});
 	};
 
+	//function to take the group input string and turn it into an array
 	handleChangeGroup = event => {
 		let removeQuotes = event.target.value.replace(/'/g, '');
 
-		let clearedSpaces = removeQuotes.trim().replace(/\s/g, '');
+		let removeSpaces = removeQuotes.trim().replace(/\s/g, '');
 
-		let textToArray = clearedSpaces.split(',');
+		let textToArray = removeSpaces.split(',');
 
 		this.setState({
 			currentGroup: textToArray
 		});
 	};
 
+	//function to control what happens when you submmit the inputs
 	onSubmitHandler = event => {
 		event.preventDefault();
 		console.log(this.state.currentSelect);
@@ -56,7 +58,6 @@ class inputIn extends Component {
 
 	render() {
 		let options = null;
-		// create function to separate by commas and get the array elements
 
 		//what is to be rendered if state is start
 		let start = (
