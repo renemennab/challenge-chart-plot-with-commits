@@ -9,7 +9,7 @@ class inputIn extends Component {
 		type: [],
 		selects: [],
 		groups: [],
-		inputs: {}
+		inputs: []
 	};
 
 	//sets the state to the selected type of data to render the other fields accordingly
@@ -45,10 +45,26 @@ class inputIn extends Component {
 		});
 	};
 
+	addEventHandler = () => {
+		const test = {
+			type: this.state.temporaryType,
+			select: this.state.currentSelect,
+			group: this.state.currentGroup
+		};
+		//const currentInputs = this.state.inputs.push(test);
+
+		// set the state
+		this.setState({
+			inputs: [...this.state.inputs, test]
+		});
+		console.log(this.state.inputs);
+	};
+
 	//function to control what happens when you submmit the inputs
 	onSubmitHandler = event => {
 		event.preventDefault();
-		console.log(this.state.currentSelect);
+		console.log(event.target.value);
+		this.addEventHandler();
 	};
 
 	handleChange2 = () => {
@@ -122,7 +138,7 @@ class inputIn extends Component {
 					<option value="data">data</option>
 					<option value="stop">stop</option>
 				</select>
-				<h2>{this.state.type}</h2>
+				<h2>{JSON.stringify(this.state.inputs)}</h2>
 				<label htmlFor="timestamp">timestamp</label>
 				<input type="number" name="timestamp" />
 				{options}
