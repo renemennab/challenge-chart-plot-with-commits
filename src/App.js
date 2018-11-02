@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
-import Header from './header';
-import DataInput from './dataInput';
+import Data from './Containers/data';
 
 class App extends Component {
 	render() {
 		return (
 			<div className="App">
-				<Header />
-				<DataInput />
+				<Data />
 			</div>
 		);
 	}
