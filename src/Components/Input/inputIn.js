@@ -67,8 +67,8 @@ class inputIn extends Component {
 	};
 
 	getDataDataHandler = (event, name, index) => {
-		const test = [...this.state.currentData];
-		test[index] = event.target.value;
+		const test = { ...this.state.currentData };
+		test[name] = event.target.value;
 		//const test = [];
 		//onSubmit(test.push(name)) ;
 		this.setState({
@@ -96,7 +96,8 @@ class inputIn extends Component {
 		};
 
 		const data = {
-			...all
+			...all,
+			...this.state.currentData
 		};
 		// all[this.state.currentSelect[0]] =
 
@@ -109,13 +110,13 @@ class inputIn extends Component {
 			case 'span':
 				change = span;
 				break;
-			/* 			case 'data':
+			case 'data':
 				change = data;
-				break; */
+				break;
 			default:
 				break;
 		}
-		// set the state
+		// set the state to add a new submitt
 		this.setState({
 			inputs: [...this.state.inputs, change]
 		});
@@ -168,7 +169,7 @@ class inputIn extends Component {
 			.concat(this.state.currentGroup)
 			.map((sl, i) => (
 				<div key={sl + i}>
-					<label htmlFor={sl}>{sl + i}</label>
+					<label htmlFor={sl}>{sl}</label>
 					<input
 						type="text"
 						name={sl}
