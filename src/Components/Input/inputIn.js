@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
-//import StartOut from './startOut';
+import Chart from '../Chart/chart';
 //import './inputIn.css';
 
 class inputIn extends Component {
 	state = {
-		currentType: '',
-		currentTimestamp: 0,
-		currentSelect: [],
-		currentGroup: [],
-		currentBegin: 0,
-		currentEnd: 0,
-		currentData: [],
-		inputs: []
+		currentType: '', // start, span, data, stop
+		currentTimestamp: 0, //number
+		currentSelect: [], //array of strings ['min_response_time', 'max_response_time']
+		currentGroup: [], //array of strings ['os', 'browser']
+		currentBegin: 0, //number
+		currentEnd: 0, //number
+		currentData: [], //object with the data input responses {min_response_time: 0.1, max_response_time:0.9, os: 'mac', browser: 'chrome' }
+		inputs: [] //array of objects containing all the data from each submit
 	};
 
 	//sets the state to the selected type of data to render the other fields accordingly
@@ -217,28 +217,31 @@ class inputIn extends Component {
 		}
 
 		return (
-			<form className="inputIn" onSubmit={this.onSubmitHandler}>
-				<label htmlFor="types">types</label>
-				<select
-					name="types"
-					onChange={event => this.handleChange(event)}
-					value={this.state.currentType}>
-					<option value="type">type</option>
-					<option value="start">start</option>
-					<option value="span">span</option>
-					<option value="data">data</option>
-					<option value="stop">stop</option>
-				</select>
-				<h2>{JSON.stringify(this.state.inputs)}</h2>
-				<label htmlFor="timestamp">timestamp</label>
-				<input
-					type="number"
-					name="timestamp"
-					onChange={event => this.handleChange(event)}
-				/>
-				{options}
-				<input type="submit" />
-			</form>
+			<div>
+				<form className="inputIn" onSubmit={this.onSubmitHandler}>
+					<label htmlFor="types">types</label>
+					<select
+						name="types"
+						onChange={event => this.handleChange(event)}
+						value={this.state.currentType}>
+						<option value="type">type</option>
+						<option value="start">start</option>
+						<option value="span">span</option>
+						<option value="data">data</option>
+						<option value="stop">stop</option>
+					</select>
+					<h2>{JSON.stringify(this.state.inputs)}</h2>
+					<label htmlFor="timestamp">timestamp</label>
+					<input
+						type="number"
+						name="timestamp"
+						onChange={event => this.handleChange(event)}
+					/>
+					{options}
+					<input type="submit" />
+				</form>
+				<Chart data={this.state.currentData} />
+			</div>
 		);
 	}
 }

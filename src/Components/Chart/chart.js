@@ -11,7 +11,7 @@ const chart = props => {
 						{
 							label: 'min chrome mac', // pega a resposta do os e a resposta do browser e junta com um select e transforma em string
 							fill: false,
-							data: [0.1, 1.3], //pega todos os min em uma array
+							data: [1.7, 1.3], //pega todos os min em uma array
 							borderColor: ['#8768A3'],
 							backgroundColor: ['#8768A3']
 						},
