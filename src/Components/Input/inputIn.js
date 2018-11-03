@@ -22,36 +22,33 @@ class inputIn extends Component {
 		});
 	};
 
-	//function to take the section input string and turn it into an array
-	handleChangeSelect = event => {
+	//function to take the section or group input string and turn it into an array
+	textToArrayHandler = event => {
 		let removeQuotes = event.target.value.replace(/'/g, '');
 
 		let removeSpaces = removeQuotes.trim().replace(/\s/g, '');
 
-		let textToArray = removeSpaces.split(',');
+		return removeSpaces.split(',');
+	};
 
+	//function to set the state of currentSelect based on the input
+	handleChangeSelect = event => {
 		this.setState({
-			currentSelect: textToArray
+			currentSelect: this.textToArrayHandler(event)
 		});
 	};
 
-	//function to take the group input string and turn it into an array
+	//function to set the state of currentGroup based on the input
 	handleChangeGroup = event => {
-		let removeQuotes = event.target.value.replace(/'/g, '');
-
-		let removeSpaces = removeQuotes.trim().replace(/\s/g, '');
-
-		let textToArray = removeSpaces.split(',');
-
 		this.setState({
-			currentGroup: textToArray
+			currentGroup: this.textToArrayHandler(event)
 		});
 	};
 
 	addEventHandler = () => {
 		const all = {
 			type: this.state.currentType,
-			select: this.state.currentSelect
+			timestamp: this.state.currentTimestamp
 		};
 		const start = {
 			...all,
@@ -133,7 +130,7 @@ class inputIn extends Component {
 		//what is to be rendered if state is span
 		let span = (
 			<div>
-				<input type="number" name="begin" onChange={}/>
+				<input type="number" name="begin" />
 				<input type="number" name="end" />
 			</div>
 		);
