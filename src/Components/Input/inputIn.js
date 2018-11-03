@@ -11,8 +11,6 @@ class inputIn extends Component {
 		currentBegin: 0,
 		currentEnd: 0,
 		currentData: [],
-		selects: [],
-		groups: [],
 		inputs: []
 	};
 
@@ -151,11 +149,13 @@ class inputIn extends Component {
 		//what is to be rendered if state is span
 		let span = (
 			<div>
+				<label htmlFor="begin">begin</label>
 				<input
 					type="number"
 					name="begin"
 					onChange={event => this.handleChange(event)}
 				/>
+				<label htmlFor="end">end</label>
 				<input
 					type="number"
 					name="end"
@@ -222,9 +222,3 @@ class inputIn extends Component {
 }
 
 export default inputIn;
-
-/* 	handleChange2 = () => {
-		this.setState({
-			type: [...this.state.type, this.state.currentType]
-		});
-	}; */
