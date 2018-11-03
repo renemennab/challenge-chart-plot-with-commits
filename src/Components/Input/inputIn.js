@@ -97,7 +97,10 @@ class inputIn extends Component {
 			...all,
 			...this.state.currentData
 		};
-		// all[this.state.currentSelect[0]] =
+
+		const stop = {
+			...all
+		};
 
 		let change = null;
 
@@ -110,6 +113,9 @@ class inputIn extends Component {
 				break;
 			case 'data':
 				change = data;
+				break;
+			case 'stop':
+				change = stop;
 				break;
 			default:
 				break;
@@ -124,6 +130,20 @@ class inputIn extends Component {
 	onSubmitHandler = event => {
 		event.preventDefault();
 		this.addEventHandler();
+		this.setState({
+			currentType: ''
+		});
+		if (this.state.currentType === 'stop') {
+			this.setState({
+				currentType: '',
+				currentTimestamp: 0,
+				currentSelect: [],
+				currentGroup: [],
+				currentBegin: 0,
+				currentEnd: 0,
+				currentData: []
+			});
+		}
 	};
 
 	render() {
