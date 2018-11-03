@@ -1,26 +1,22 @@
 import React, { Component } from 'react';
-import StartOut from './startOut';
+//import StartOut from './startOut';
 //import './inputIn.css';
 
 class inputIn extends Component {
 	state = {
 		currentType: '',
-		currentTimestamp: [],
+		currentTimestamp: 0,
 		currentSelect: [],
 		currentGroup: [],
-		currentBegin: '',
-		currentEnd: '',
+		currentBegin: 0,
+		currentEnd: 0,
+		currentData: [],
 		selects: [],
 		groups: [],
 		inputs: []
 	};
 
 	//sets the state to the selected type of data to render the other fields accordingly
-	handleChange = event => {
-		this.setState({
-			currentType: event.target.value
-		});
-	};
 
 	//function to take the section or group input string and turn it into an array
 	textToArrayHandler = event => {
@@ -31,19 +27,55 @@ class inputIn extends Component {
 		return removeSpaces.split(',');
 	};
 
-	//function to set the state of currentSelect based on the input
-	handleChangeSelect = event => {
-		this.setState({
-			currentSelect: this.textToArrayHandler(event)
-		});
-		console.log(this.state.currentSelect);
+	//function to set the state based on the input
+	handleChange = event => {
+		switch (event.target.name) {
+			case 'types':
+				this.setState({
+					currentType: event.target.value
+				});
+				break;
+			case 'timestamp':
+				this.setState({
+					currentTimestamp: event.target.value
+				});
+				break;
+			case 'select':
+				this.setState({
+					currentSelect: this.textToArrayHandler(event)
+				});
+				break;
+			case 'group':
+				this.setState({
+					currentGroup: this.textToArrayHandler(event)
+				});
+				break;
+			case 'begin':
+				this.setState({
+					currentBegin: this.textToArrayHandler(event)
+				});
+				break;
+			case 'end':
+				this.setState({
+					currentEnd: this.textToArrayHandler(event)
+				});
+				break;
+
+			default:
+				break;
+		}
 	};
 
-	//function to set the state of currentGroup based on the input
-	handleChangeGroup = event => {
+	getDataDataHandler = (event, name, index) => {
+		const test = [...this.state.currentData];
+		test[index] = event.target.value;
+		//const test = [];
+		//onSubmit(test.push(name)) ;
 		this.setState({
-			currentGroup: this.textToArrayHandler(event)
+			currentData: test
 		});
+		console.log(test);
+		//console.log(this.state.currentData);
 	};
 
 	addEventHandler = () => {
@@ -63,22 +95,10 @@ class inputIn extends Component {
 			end: this.state.currentEnd
 		};
 
-		/* 		const data = this.state.currentSelect
-        .concat(this.state.currentGroup)
-        .map((sl, i) => ({
-            sl:
-        }
-            <div key={sl + new Date().getTime()}>
-                <label htmlFor={sl}>{sl}</label>
-                <input type="text" name={sl} />
-            </div>
-        )); */
-
-		/* const stop = {
-			type: this.state.currentType,
-			select: this.state.currentSelect,
-			group: this.state.currentGroup
-        }; */
+		const data = {
+			...all
+		};
+		// all[this.state.currentSelect[0]] =
 
 		let change = null;
 
@@ -99,13 +119,11 @@ class inputIn extends Component {
 		this.setState({
 			inputs: [...this.state.inputs, change]
 		});
-		console.log(this.state.inputs);
 	};
 
 	//function to control what happens when you submmit the inputs
 	onSubmitHandler = event => {
 		event.preventDefault();
-		console.log(event.target.value);
 		this.addEventHandler();
 	};
 
@@ -119,21 +137,29 @@ class inputIn extends Component {
 				<input
 					type="text"
 					name="select"
-					onChange={event => this.handleChangeSelect(event)}
+					onChange={event => this.handleChange(event)}
 				/>
 				<label htmlFor="group">group</label>
 				<input
 					type="text"
 					name="group"
-					onChange={event => this.handleChangeGroup(event)}
+					onChange={event => this.handleChange(event)}
 				/>
 			</div>
 		);
 		//what is to be rendered if state is span
 		let span = (
 			<div>
-				<input type="number" name="begin" />
-				<input type="number" name="end" />
+				<input
+					type="number"
+					name="begin"
+					onChange={event => this.handleChange(event)}
+				/>
+				<input
+					type="number"
+					name="end"
+					onChange={event => this.handleChange(event)}
+				/>
 			</div>
 		);
 		//what is to be rendered if state is data
@@ -142,8 +168,14 @@ class inputIn extends Component {
 			.concat(this.state.currentGroup)
 			.map((sl, i) => (
 				<div key={sl + new Date().getTime()}>
-					<label htmlFor={sl}>{sl}</label>
-					<input type="text" name={sl} />
+					<label htmlFor={sl}>{sl + i}</label>
+					<input
+						type="text"
+						name={sl}
+						onChange={event =>
+							this.getDataDataHandler(event, event.target.name, i)
+						}
+					/>
 				</div>
 			));
 
@@ -166,7 +198,7 @@ class inputIn extends Component {
 				<label htmlFor="types">types</label>
 				<select
 					name="types"
-					onChange={this.handleChange}
+					onChange={event => this.handleChange(event)}
 					value={this.state.currentType}>
 					<option value="type">type</option>
 					<option value="start">start</option>
@@ -176,7 +208,11 @@ class inputIn extends Component {
 				</select>
 				<h2>{JSON.stringify(this.state.inputs)}</h2>
 				<label htmlFor="timestamp">timestamp</label>
-				<input type="number" name="timestamp" />
+				<input
+					type="number"
+					name="timestamp"
+					onChange={event => this.handleChange(event)}
+				/>
 				{options}
 				<input type="submit" />
 			</form>
