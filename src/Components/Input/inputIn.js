@@ -36,6 +36,7 @@ class inputIn extends Component {
 		this.setState({
 			currentSelect: this.textToArrayHandler(event)
 		});
+		console.log(this.state.currentSelect);
 	};
 
 	//function to set the state of currentGroup based on the input
@@ -52,6 +53,7 @@ class inputIn extends Component {
 		};
 		const start = {
 			...all,
+			select: this.state.currentSelect,
 			group: this.state.currentGroup
 		};
 
