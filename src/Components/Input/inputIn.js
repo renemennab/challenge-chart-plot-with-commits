@@ -75,11 +75,6 @@ class inputIn extends Component {
 		this.setState({
 			currentData: test
 		});
-		console.log(test);
-		console.log(typeof Number(event.target.type) == 'number');
-		console.log(isNaN(Number(event.target.type)) === false);
-		console.log(isNaN(Number(event.target.type)));
-		//console.log(this.state.currentData);
 	};
 
 	addEventHandler = () => {
