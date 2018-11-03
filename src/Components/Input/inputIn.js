@@ -35,7 +35,7 @@ class inputIn extends Component {
 				break;
 			case 'timestamp':
 				this.setState({
-					currentTimestamp: event.target.value
+					currentTimestamp: Number(event.target.value)
 				});
 				break;
 			case 'select':
@@ -50,12 +50,12 @@ class inputIn extends Component {
 				break;
 			case 'begin':
 				this.setState({
-					currentBegin: this.textToArrayHandler(event)
+					currentBegin: Number(event.target.value)
 				});
 				break;
 			case 'end':
 				this.setState({
-					currentEnd: this.textToArrayHandler(event)
+					currentEnd: Number(event.target.value)
 				});
 				break;
 
@@ -66,13 +66,19 @@ class inputIn extends Component {
 
 	getDataDataHandler = (event, name, index) => {
 		const test = { ...this.state.currentData };
-		test[name] = event.target.value;
-		//const test = [];
-		//onSubmit(test.push(name)) ;
+		if (isNaN(Number(event.target.value))) {
+			test[name] = event.target.value;
+		} else {
+			test[name] = Number(event.target.value);
+		}
+
 		this.setState({
 			currentData: test
 		});
 		console.log(test);
+		console.log(typeof Number(event.target.type) == 'number');
+		console.log(isNaN(Number(event.target.type)) === false);
+		console.log(isNaN(Number(event.target.type)));
 		//console.log(this.state.currentData);
 	};
 
@@ -124,6 +130,7 @@ class inputIn extends Component {
 		this.setState({
 			inputs: [...this.state.inputs, change]
 		});
+		console.log(this.state.inputs);
 	};
 
 	//function to control what happens when you submmit the inputs
