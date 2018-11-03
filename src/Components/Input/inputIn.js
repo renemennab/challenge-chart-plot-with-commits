@@ -167,7 +167,7 @@ class inputIn extends Component {
 		let data = this.state.currentSelect
 			.concat(this.state.currentGroup)
 			.map((sl, i) => (
-				<div key={sl + new Date().getTime()}>
+				<div key={sl + i}>
 					<label htmlFor={sl}>{sl + i}</label>
 					<input
 						type="text"
