@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
+import StartOut from './startOut';
 //import './inputIn.css';
 
 class inputIn extends Component {
 	state = {
-		temporaryType: '',
+		currentType: '',
+		currentTimestamp: [],
 		currentSelect: [],
 		currentGroup: [],
-		type: [],
+		currentBegin: '',
+		currentEnd: '',
 		selects: [],
 		groups: [],
 		inputs: []
@@ -15,12 +18,12 @@ class inputIn extends Component {
 	//sets the state to the selected type of data to render the other fields accordingly
 	handleChange = event => {
 		this.setState({
-			temporaryType: event.target.value
+			currentType: event.target.value
 		});
 	};
 
 	//function to take the section input string and turn it into an array
-	handleChangeSection = event => {
+	handleChangeSelect = event => {
 		let removeQuotes = event.target.value.replace(/'/g, '');
 
 		let removeSpaces = removeQuotes.trim().replace(/\s/g, '');
@@ -46,16 +49,56 @@ class inputIn extends Component {
 	};
 
 	addEventHandler = () => {
-		const test = {
-			type: this.state.temporaryType,
-			select: this.state.currentSelect,
+		const all = {
+			type: this.state.currentType,
+			select: this.state.currentSelect
+		};
+		const start = {
+			...all,
 			group: this.state.currentGroup
 		};
-		//const currentInputs = this.state.inputs.push(test);
 
+		const span = {
+			...all,
+			begin: this.state.currentBegin,
+			end: this.state.currentEnd
+		};
+
+		/* 		const data = this.state.currentSelect
+        .concat(this.state.currentGroup)
+        .map((sl, i) => ({
+            sl:
+        }
+            <div key={sl + new Date().getTime()}>
+                <label htmlFor={sl}>{sl}</label>
+                <input type="text" name={sl} />
+            </div>
+        )); */
+
+		/* const stop = {
+			type: this.state.currentType,
+			select: this.state.currentSelect,
+			group: this.state.currentGroup
+        }; */
+
+		let change = null;
+
+		switch (this.state.currentType) {
+			case 'start':
+				change = start;
+				break;
+			case 'span':
+				change = span;
+				break;
+			/* 			case 'data':
+				change = data;
+				break; */
+			default:
+				break;
+		}
 		// set the state
 		this.setState({
-			inputs: [...this.state.inputs, test]
+			inputs: [...this.state.inputs, change]
 		});
 		console.log(this.state.inputs);
 	};
@@ -65,12 +108,6 @@ class inputIn extends Component {
 		event.preventDefault();
 		console.log(event.target.value);
 		this.addEventHandler();
-	};
-
-	handleChange2 = () => {
-		this.setState({
-			type: [...this.state.type, this.state.temporaryType]
-		});
 	};
 
 	render() {
@@ -83,7 +120,7 @@ class inputIn extends Component {
 				<input
 					type="text"
 					name="select"
-					onChange={event => this.handleChangeSection(event)}
+					onChange={event => this.handleChangeSelect(event)}
 				/>
 				<label htmlFor="group">group</label>
 				<input
@@ -96,7 +133,7 @@ class inputIn extends Component {
 		//what is to be rendered if state is span
 		let span = (
 			<div>
-				<input type="number" name="begin" />
+				<input type="number" name="begin" onChange={}/>
 				<input type="number" name="end" />
 			</div>
 		);
@@ -111,7 +148,7 @@ class inputIn extends Component {
 				</div>
 			));
 
-		switch (this.state.temporaryType) {
+		switch (this.state.currentType) {
 			case 'start':
 				options = start;
 				break;
@@ -131,7 +168,7 @@ class inputIn extends Component {
 				<select
 					name="types"
 					onChange={this.handleChange}
-					value={this.state.temporaryType}>
+					value={this.state.currentType}>
 					<option value="type">type</option>
 					<option value="start">start</option>
 					<option value="span">span</option>
@@ -149,3 +186,9 @@ class inputIn extends Component {
 }
 
 export default inputIn;
+
+/* 	handleChange2 = () => {
+		this.setState({
+			type: [...this.state.type, this.state.currentType]
+		});
+	}; */
