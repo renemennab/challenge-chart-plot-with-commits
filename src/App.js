@@ -64,7 +64,7 @@ class App extends Component {
 				console.log('push1');
 				console.log(arr1);
 			});
-			return (obj['groups'] = arr1);
+			return (obj['groupset'] = arr1);
 		};
 
 		//function that takes the array of objects and maps throug it to deliver de groupset it should analize and ads it as a new proprety
@@ -98,21 +98,29 @@ passar um filter e pegar so datas
 		['min_response_time', 'max_response_time']
 		['os', 'browser']
 xxx [
-{type: "data", timestamp: 1, min_response_time: 7, max_response_time: 8, os: "mac", browser: "chrome"},
-{type: "data", timestamp: 1, min_response_time: 4, max_response_time: 9, os: "mac", browser: "chrome"},
-{type: "data", timestamp: 1, min_response_time: 7, max_response_time: 8, os: "mac", browser: "safari"},
-{type: "data", timestamp: 1, min_response_time: 7, max_response_time: 8, os: "mac", browser: "safari"},
+{type: "data", timestamp: 1, min_response_time: 7, max_response_time: 8, os: "mac", browser: "chrome", groupset: ["mac", "chrome"]},
+{type: "data", timestamp: 1, min_response_time: 4, max_response_time: 9, os: "mac", browser: "chrome", groupset: ["mac", "chrome"]},
+{type: "data", timestamp: 1, min_response_time: 7, max_response_time: 8, os: "mac", browser: "safari", groupset: ["mac", "safari"]},
+{type: "data", timestamp: 1, min_response_time: 7, max_response_time: 8, os: "mac", browser: "safari", groupset: ["mac", "safari"]},
 ]
 
+const setsForChart = []
+const extractSelects = () => {
+			return selects.map(s => {
+				return setsForChart.push(createObjForChart(s));
+			});
+		};
 
-xxx.map(
-	el => group.map(
-		g=> 
-			if(el[g]==true) {
-				array1.push(el[g]) //ar1 [mac, chrome]
-	arr2.push(arr1)
-	xxx[group] = arr2
-}))
+		const createObjForChart = (s) => {
+			const obj1 = {};
+			array.map(el => {
+				if (el[s]){
+					obj1[s+el[groupset].join] = []
+					return obj1[s+el[groupset].join].push(obj[s]); //{min_response_time + mac + chrome:[n]}
+				}
+				console.log('push2');
+			});
+		};
 
 
 
