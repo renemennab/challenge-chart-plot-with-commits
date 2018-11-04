@@ -38,15 +38,15 @@ class App extends Component {
 			{
 				type: 'data',
 				timestamp: 1,
-				min_response_time: 7,
-				max_response_time: 8,
+				min_response_time: 10,
+				max_response_time: 11,
 				os: 'mac',
 				browser: 'safari'
 			},
 			{ type: 'stop', timestamp: 1 }
 		];
 
-		//const selects = ['min_response_time', 'max_response_time'];
+		const selects = ['min_response_time', 'max_response_time'];
 		const groups = ['os', 'browser'];
 
 		//function to filter the inputs and return only the data to generate chart
@@ -61,8 +61,6 @@ class App extends Component {
 				if (obj[g]) {
 					return arr1.push(obj[g]);
 				}
-				console.log('push1');
-				console.log(arr1);
 			});
 			return (obj['groupset'] = arr1);
 		};
@@ -71,13 +69,58 @@ class App extends Component {
 		const addGroupProprety = array => {
 			const arr2 = [];
 			array.map((el, i) => {
-				console.log('push2');
 				return arr2.push(extractGroupset(el));
 			});
 			return arr2;
 		};
 		console.log(addGroupProprety(onlyData));
 		console.log(onlyData);
+
+		/////////////////////////////////////////
+		const setsForCharts = [];
+
+		const createObjForChart = s => {
+			const objNames = [];
+			onlyData.map(el => {
+				const objName = s + '_' + el['groupset'].join('_');
+				const obj1 = {};
+				if (el[s] && objNames.indexOf(objName) === -1) {
+					objNames.push(objName);
+					obj1[objName] = [];
+					obj1[objName].push(el[s]);
+					return setsForCharts.push(obj1); //{min_response_time + mac + chrome:[n]}
+					//return obj1[objName].push(el[s]); //{min_response_time + mac + chrome:[n]}
+				} else if (el[s] && objNames.indexOf(objName) !== -1) {
+					return addInSetsForCharts(objName, el[s]); //{min_response_time + mac + chrome:[n]}
+				}
+			});
+			console.log('push1');
+			console.log(objNames);
+			//console.log(obj1);
+		};
+
+		//function to add if there is already an objects for that set name
+		const addInSetsForCharts = (objName, value) => {
+			setsForCharts.map(ob => {
+				if (ob[objName]) {
+					return ob[objName].push(value);
+				}
+			});
+		};
+		//{type: "data", timestamp: 1, min_response_time: 4, max_response_time: 9, os: "mac", browser: "chrome", groupset: ["mac", "chrome"]},
+
+		const extractSelects = () => {
+			const setsForChartNames = [];
+			return selects.map(s => {
+				return setsForChartNames.push(createObjForChart(s));
+			});
+		};
+
+		console.log(extractSelects());
+		//console.log(onlyData);
+		console.log(setsForCharts);
+
+		/////////////////////////////////////////
 
 		return (
 			<div className="App">
