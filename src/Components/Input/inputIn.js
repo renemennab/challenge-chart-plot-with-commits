@@ -6,8 +6,8 @@ import NoDivWraper from '../HOC/noDivWraper';
 class inputIn extends Component {
 	render() {
 		let options = null;
-		//console.log('props chart data' + this.props.);
-		//what is to be rendered if state is start
+
+		//what is to be rendered if currentType is start
 		let start = (
 			<NoDivWraper>
 				<label htmlFor="select">
@@ -31,7 +31,8 @@ class inputIn extends Component {
 				{']'}
 			</NoDivWraper>
 		);
-		//what is to be rendered if state is span
+
+		//what is to be rendered if currentType is span
 		let span = (
 			<NoDivWraper>
 				<label htmlFor="begin">
@@ -54,7 +55,7 @@ class inputIn extends Component {
 				/>
 			</NoDivWraper>
 		);
-		//what is to be rendered if state is data
+		//what is to be rendered if currentType is data
 		//currentSelect is concatenaded with currentGroup to map the product and return the labels according to the inputs from start
 		let data = this.props.currentSelect
 			.concat(this.props.currentGroup)
