@@ -75,7 +75,7 @@ class Data extends Component {
 		}
 	};
 
-	getDataDataHandler = (event, name, index) => {
+	getDataDataHandler = (event, name) => {
 		const test = { ...this.state.currentData };
 		if (isNaN(Number(event.target.value))) {
 			test[name] = event.target.value;
