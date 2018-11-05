@@ -11,8 +11,13 @@ class inputIn extends Component {
 		currentBegin: 0, //number
 		currentEnd: 0, //number
 		currentData: [], //object with the data input responses {min_response_time: 0.1, max_response_time:0.9, os: 'mac', browser: 'chrome' }
-		inputs: [] //array of objects containing all the data from each submit
+		inputs: [], //array of objects containing all the data from each submit
+		selects: [] //selects: [{min_response_time + mac + chrome:[7,4]},{max_response_time + mac + chrome:[8,9]}]
 	};
+
+	//Object.keys(currentData).map(el => )
+
+	//const x =  currentSelect.map(el=> selects.push([el]))// [['min_response_time'], ['max_response_time']]
 
 	//sets the state to the selected type of data to render the other fields accordingly
 
@@ -150,7 +155,7 @@ class inputIn extends Component {
 
 	render() {
 		let options = null;
-
+		//console.log('props chart data' + this.props.);
 		//what is to be rendered if state is start
 		let start = (
 			<div>
@@ -240,7 +245,7 @@ class inputIn extends Component {
 					{options}
 					<input type="submit" />
 				</form>
-				<Chart data={this.state.currentData} />
+				<Chart data={this.props.currentData} />
 			</div>
 		);
 	}
