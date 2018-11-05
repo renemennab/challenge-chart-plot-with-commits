@@ -1,0 +1,45 @@
+.inputIn {
+	background-color: #2e3440;
+	font-family: 'Source Code Pro', monospace;
+	font-size: 1.4rem;
+	color: white;
+}
+
+.inputIn label,
+.inputIn input,
+.inputIn select {
+	display: inline-block;
+	background-color: #2e3440;
+	border: none;
+	font-size: 1.4rem;
+}
+
+.inputIn input,
+.inputIn select {
+	color: #10bccb;
+}
+
+.inputIn label {
+	color: white;
+	padding: 1rem;
+}
+
+.inputIn input {
+	border-bottom: solid 1px white;
+	padding: 0.5rem;
+}
+
+.inputIn input:focus {
+	outline: solid 3px rgba(255, 255, 255, 0.8);
+	outline-style: auto;
+	border-bottom: none;
+}
+
+.inputIn select:focus {
+	outline: none;
+}
+
+.submitBtn {
+	display: none;
+	visibility: hidden;
+}

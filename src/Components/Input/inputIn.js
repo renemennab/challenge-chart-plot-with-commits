@@ -10,30 +10,43 @@ class inputIn extends Component {
 		//what is to be rendered if state is start
 		let start = (
 			<NoDivWraper>
-				<label htmlFor="select">select</label>
+				<label htmlFor="select">
+					{','} select
+					{':['}
+				</label>
 				<input
 					type="text"
 					name="select"
 					onChange={event => this.props.handleChange(event)}
 				/>
-				<label htmlFor="group">group</label>
+				<label htmlFor="group">
+					{'],'} group
+					{':['}
+				</label>
 				<input
 					type="text"
 					name="group"
 					onChange={event => this.props.handleChange(event)}
 				/>
+				{']'}
 			</NoDivWraper>
 		);
 		//what is to be rendered if state is span
 		let span = (
 			<NoDivWraper>
-				<label htmlFor="begin">begin</label>
+				<label htmlFor="begin">
+					{','} begin
+					{':'}
+				</label>
 				<input
 					type="number"
 					name="begin"
 					onChange={event => this.props.handleChange(event)}
 				/>
-				<label htmlFor="end">end</label>
+				<label htmlFor="end">
+					{','} end
+					{':'}
+				</label>
 				<input
 					type="number"
 					name="end"
@@ -47,7 +60,10 @@ class inputIn extends Component {
 			.concat(this.props.currentGroup)
 			.map((sl, i) => (
 				<NoDivWraper key={sl + i}>
-					<label htmlFor={sl}>{sl}</label>
+					<label htmlFor={sl}>
+						{','} {sl}
+						{':'}
+					</label>
 					<input
 						type="text"
 						name={sl}
@@ -79,7 +95,10 @@ class inputIn extends Component {
 		return (
 			<div className="inputIn">
 				<form className="inputIn" onSubmit={this.props.onSubmitHandler}>
-					<label htmlFor="types">types</label>
+					<label htmlFor="types">
+						{'{'}
+						type:
+					</label>
 					<select
 						name="types"
 						onChange={event => this.props.handleChange(event)}
@@ -90,14 +109,15 @@ class inputIn extends Component {
 						<option value="data">data</option>
 						<option value="stop">stop</option>
 					</select>
-					<label htmlFor="timestamp">timestamp</label>
+					<label htmlFor="timestamp">, timestamp:</label>
 					<input
 						type="number"
 						name="timestamp"
 						onChange={event => this.props.handleChange(event)}
 					/>
 					{options}
-					<input type="submit" />
+					<span>{'}'}</span>
+					<input type="submit" className="submitBtn" />
 				</form>
 			</div>
 		);
