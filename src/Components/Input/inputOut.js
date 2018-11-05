@@ -4,7 +4,7 @@ import React from 'react';
 const inputOut = props => {
 	return (
 		<header className="inputOut">
-			<p>Renê's Challenge</p>
+			<p>Input out</p>
 		</header>
 	);
 };
