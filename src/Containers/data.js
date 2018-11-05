@@ -5,6 +5,7 @@ import InputOut from '../Components/Input/inputOut';
 import Chart from '../Components/Chart/chart';
 import Button from '../Components/Button/button';
 
+//data is the main component. it holds all the components and it is where all global state should be
 class Data extends Component {
 	state = {
 		currentType: '', // start, span, data, stop
@@ -15,17 +16,10 @@ class Data extends Component {
 		currentEnd: 0, //number
 		currentData: [], //object with the data input responses {min_response_time: 0.1, max_response_time:0.9, os: 'mac', browser: 'chrome' }
 		inputs: [], //array of objects containing all the data from each submit
-		selects: [], //array of strings ['min_response_time', 'max_response_time']
-		groups: [], //array of strings ['os', 'browser']
-		dataForChart: null
+		selects: [], //array of strings ['min_response_time', 'max_response_time'] so they are not lost after stop
+		groups: [], //array of strings ['os', 'browser'] so they are not lost after stop
+		dataForChart: null //the data that is to be sent to generate chart
 	};
-
-	componentDidUpdate() {
-		//console.log('componentDidUpdate');
-		//console.log(this.state.inputs);
-		//console.log(this.state.groups);
-	}
-	//sets the state to the selected type of data to render the other fields accordingly
 
 	//function to take the section or group input string and turn it into an array
 	textToArrayHandler = event => {
@@ -36,7 +30,7 @@ class Data extends Component {
 		return removeSpaces.split(',');
 	};
 
-	//function to set the state based on the input
+	//function to set the state based on the input to render the other fields accordingly
 	handleChange = event => {
 		switch (event.target.name) {
 			case 'types':
@@ -75,6 +69,7 @@ class Data extends Component {
 		}
 	};
 
+	// function to take numbers in string type and turn them into number type
 	getDataDataHandler = (event, name) => {
 		const test = { ...this.state.currentData };
 		if (isNaN(Number(event.target.value))) {
@@ -88,6 +83,7 @@ class Data extends Component {
 		});
 	};
 
+	//function to add the events to the inputs array
 	addEventHandler = () => {
 		const all = {
 			type: this.state.currentType,
@@ -181,15 +177,15 @@ class Data extends Component {
 				<Header />
 
 				<InputIn
-					currentType={this.state.currentType} // start, span, data, stop
-					currentTimestamp={this.state.currentTimestamp} //number
-					currentSelect={this.state.currentSelect} //array of strings ['min_response_time', 'max_response_time']
-					currentGroup={this.state.currentGroup} //array of strings ['os', 'browser']
-					currentBegin={this.state.currentBegin} //number
-					currentEnd={this.state.currentEnd} //number
-					currentData={this.state.currentData} //object with the data input responses {min_response_time: 0.1, max_response_time:0.9, os: 'mac', browser: 'chrome' }
-					inputs={this.state.inputs} //array of objects containing all the data from each submit
-					selects={this.state.selects} //array of strings ['min_response_time', 'max_response_time']
+					currentType={this.state.currentType}
+					currentTimestamp={this.state.currentTimestamp}
+					currentSelect={this.state.currentSelect}
+					currentGroup={this.state.currentGroup}
+					currentBegin={this.state.currentBegin}
+					currentEnd={this.state.currentEnd}
+					currentData={this.state.currentData}
+					inputs={this.state.inputs}
+					selects={this.state.selects}
 					groups={this.state.groups}
 					handleChange={event => this.handleChange(event)}
 					getDataDataHandler={(event, name) =>
@@ -201,8 +197,8 @@ class Data extends Component {
 				<InputOut inputs={this.state.inputs} />
 
 				<Chart
-					onlyData={this.state.dataForChart} //array of objects containing all the data from each submit
-					selects={this.state.selects} //array of strings ['min_response_time', 'max_response_time']
+					onlyData={this.state.dataForChart}
+					selects={this.state.selects}
 					groups={this.state.groups}
 				/>
 
@@ -213,13 +209,3 @@ class Data extends Component {
 }
 
 export default Data;
-
-/* onSubmitHandler = event => {
-    event.preventDefault();
-    this.addEventHandler();
-    if (this.state.currentType === 'start') {
-        this.setState({
-            currentType: '',
-            groups: [...this.state.groups, [this.state.currentGroup]],
-            selects: [...this.state.selects, [this.state.currentSelect]]
-        }); */
