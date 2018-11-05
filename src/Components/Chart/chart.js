@@ -33,8 +33,6 @@ const chart = props => {
 		});
 		return arr2;
 	};
-	//console.log(addGroupProprety(props.onlyData));
-	//console.log(props.onlyData);
 
 	/////////////////////////////////////////
 	const setsForCharts = [];
@@ -54,9 +52,6 @@ const chart = props => {
 				return addInSetsForCharts(objName, el[s]); //{min_response_time + mac + chrome:[n]}
 			}
 		});
-		//console.log('push1');
-		//console.log(objNames);
-		//console.log(obj1);
 	};
 
 	//function to add if there is already an objects for that set name
@@ -67,7 +62,6 @@ const chart = props => {
 			}
 		});
 	};
-	//{type: "data", timestamp: 1, min_response_time: 4, max_response_time: 9, os: "mac", browser: "chrome", groupset: ["mac", "chrome"]},
 
 	const extractSelects = () => {
 		const setsForChartNames = [];
@@ -75,10 +69,6 @@ const chart = props => {
 			return setsForChartNames.push(createObjForChart(s));
 		});
 	};
-
-	//console.log(extractSelects());
-	//console.log(props.onlyData);
-	//console.log(setsForCharts);
 
 	/////////////////////////////////////////
 
@@ -91,8 +81,6 @@ const chart = props => {
 			} else {
 				lineColor++;
 			}
-			//console.log(lineColor);
-			//JSON.stringify(Object.keys(dt)[0].replace(/_/g, ' '))
 			const newStuf = {
 				label: Object.keys(dt)[0].replace(/_/g, ' '), // pega a resposta do os e a resposta do browser e junta com um select e transforma em string
 				fill: false,
@@ -103,8 +91,6 @@ const chart = props => {
 			return datasetsArray.push(newStuf);
 		});
 	};
-	//console.log(SplitData());
-	//console.log(datasetsArray);
 
 	let chart = <h1>no chart yet</h1>;
 
@@ -140,14 +126,3 @@ const chart = props => {
 };
 
 export default chart;
-
-//[{ 'min chrome mac': [0.1, 1.3] }];
-
-/* datasets: [
-    {
-        label: 'min chrome mac', // pega a resposta do os e a resposta do browser e junta com um select e transforma em string
-        fill: false,
-        data: [1.7, 1.3], //pega todos os min em uma array
-        borderColor: ['#8768A3'],
-        backgroundColor: ['#8768A3']
-    }, */
