@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Chart from '../Chart/chart';
 //import './inputIn.css';
 
 class inputIn extends Component {
@@ -14,10 +13,6 @@ class inputIn extends Component {
 		inputs: [], //array of objects containing all the data from each submit
 		selects: [] //selects: [{min_response_time + mac + chrome:[7,4]},{max_response_time + mac + chrome:[8,9]}]
 	};
-
-	//Object.keys(currentData).map(el => )
-
-	//const x =  currentSelect.map(el=> selects.push([el]))// [['min_response_time'], ['max_response_time']]
 
 	//sets the state to the selected type of data to render the other fields accordingly
 
@@ -245,7 +240,6 @@ class inputIn extends Component {
 					{options}
 					<input type="submit" />
 				</form>
-				<Chart data={this.props.currentData} />
 			</div>
 		);
 	}
