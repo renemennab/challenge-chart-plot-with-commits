@@ -2,16 +2,6 @@ import React from 'react';
 import { Line } from 'react-chartjs-2';
 
 const chart = props => {
-	const data = [
-		{ min_response_time_mac_chrome: [1, 4] },
-		{ min_response_time_mac_safari: [2, 5] },
-		{ max_response_time_mac_chrome: [3, 6] },
-		{ max_response_time_mac_chrome: [4, 7] },
-		{ max_response_time_mac_chrome: [5, 8] },
-		{ max_response_time_mac_chrome: [6, 9] },
-		{ max_response_time_mac_chrome: [7, 10] },
-		{ max_response_time_mac_chrome: [8, 11] }
-	];
 	const colors = [
 		'#6DBA52',
 		'#26715D',
@@ -23,16 +13,84 @@ const chart = props => {
 		'#E9A854'
 	];
 
+	//function that maps through an object and outputs the groupset [mac, chrome]
+	const extractGroupset = obj => {
+		const arr1 = [];
+		props.groups.map(g => {
+			if (obj[g]) {
+				return arr1.push(obj[g]);
+			}
+		});
+		return (obj['groupset'] = arr1);
+	};
+
+	//function that takes the array of objects and maps throug it to deliver de groupset it should analize and ads it as a new proprety
+	const addGroupProprety = array => {
+		const arr2 = [];
+		array.map((el, i) => {
+			return arr2.push(extractGroupset(el));
+		});
+		return arr2;
+	};
+	//console.log(addGroupProprety(props.onlyData));
+	//console.log(props.onlyData);
+
+	/////////////////////////////////////////
+	const setsForCharts = [];
+
+	const createObjForChart = s => {
+		const objNames = [];
+		props.onlyData.map(el => {
+			const objName = s + '_' + el['groupset'].join('_');
+			const obj1 = {};
+			if (el[s] && objNames.indexOf(objName) === -1) {
+				objNames.push(objName);
+				obj1[objName] = [];
+				obj1[objName].push(el[s]);
+				return setsForCharts.push(obj1); //{min_response_time + mac + chrome:[n]}
+				//return obj1[objName].push(el[s]); //{min_response_time + mac + chrome:[n]}
+			} else if (el[s] && objNames.indexOf(objName) !== -1) {
+				return addInSetsForCharts(objName, el[s]); //{min_response_time + mac + chrome:[n]}
+			}
+		});
+		//console.log('push1');
+		//console.log(objNames);
+		//console.log(obj1);
+	};
+
+	//function to add if there is already an objects for that set name
+	const addInSetsForCharts = (objName, value) => {
+		setsForCharts.map(ob => {
+			if (ob[objName]) {
+				return ob[objName].push(value);
+			}
+		});
+	};
+	//{type: "data", timestamp: 1, min_response_time: 4, max_response_time: 9, os: "mac", browser: "chrome", groupset: ["mac", "chrome"]},
+
+	const extractSelects = () => {
+		const setsForChartNames = [];
+		return props.selects.map(s => {
+			return setsForChartNames.push(createObjForChart(s));
+		});
+	};
+
+	//console.log(extractSelects());
+	//console.log(props.onlyData);
+	//console.log(setsForCharts);
+
+	/////////////////////////////////////////
+
 	const datasetsArray = [];
 	const SplitData = () => {
 		var lineColor = -1;
-		data.map(dt => {
+		setsForCharts.map(dt => {
 			if (lineColor > colors.length - 2) {
 				lineColor = 0;
 			} else {
 				lineColor++;
 			}
-			console.log(lineColor);
+			//console.log(lineColor);
 			//JSON.stringify(Object.keys(dt)[0].replace(/_/g, ' '))
 			const newStuf = {
 				label: Object.keys(dt)[0].replace(/_/g, ' '), // pega a resposta do os e a resposta do browser e junta com um select e transforma em string
@@ -44,11 +102,17 @@ const chart = props => {
 			return datasetsArray.push(newStuf);
 		});
 	};
-	console.log(SplitData());
-	console.log(datasetsArray);
+	//console.log(SplitData());
+	//console.log(datasetsArray);
 
-	return (
-		<div className="chart">
+	let chart = <h1>no chart yet</h1>;
+
+	if (props.onlyData !== null) {
+		addGroupProprety(props.onlyData);
+		extractSelects();
+		SplitData();
+
+		chart = (
 			<Line
 				data={{
 					labels: [0, 0.1],
@@ -67,8 +131,10 @@ const chart = props => {
 					showLines: true
 				}}
 			/>
-		</div>
-	);
+		);
+	}
+
+	return <div className="chart">{chart}</div>;
 };
 
 export default chart;
