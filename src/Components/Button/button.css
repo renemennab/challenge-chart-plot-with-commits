@@ -1,0 +1,17 @@
+.back {
+	background-color: rgb(204, 204, 204);
+	height: 10%;
+	width: 100%;
+	position: absolute;
+	left: 0;
+	top: 100%;
+	transform: translateY(-100%);
+}
+
+.btn {
+	padding: 1rem;
+	margin: 2.5rem;
+	border-radius: 5px;
+	color: white;
+	background-color: #017eff;
+}

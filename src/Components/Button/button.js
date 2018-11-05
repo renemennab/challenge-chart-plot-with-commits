@@ -1,13 +1,13 @@
 import React from 'react';
-//import './button.css';
+import './button.css';
 
 const button = props => {
 	return (
-		<footer>
+		<div className="back">
 			<button className="btn" onClick={props.click}>
-				generate chart
+				GENERATE CHART
 			</button>
-		</footer>
+		</div>
 	);
 };
 
