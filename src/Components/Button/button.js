@@ -1,8 +1,12 @@
 import React from 'react';
-import './button.css';
+//import './button.css';
 
-const button = () => {
-	return <button className="btn">generate chart</button>;
+const button = props => {
+	return (
+		<button className="btn" onClick={props.click}>
+			generate chart
+		</button>
+	);
 };
 
 export default button;
