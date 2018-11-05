@@ -1,5 +1,5 @@
 import React from 'react';
-//import './inputOut.css';
+import './inputOut.css';
 
 const inputOut = props => {
 	let renderedInputs = null;
@@ -29,7 +29,7 @@ const inputOut = props => {
 				} else if (/null/.test(match)) {
 					cls = 'null';
 				}
-				return '<span className="' + cls + '">' + match + '</span>';
+				return '<span id="span_' + cls + '">' + match + '</span>';
 			}
 		);
 	}
@@ -37,7 +37,6 @@ const inputOut = props => {
 	if (props.inputs.length > 0) {
 		renderedInputs = props.inputs.map((event, i) => {
 			const jsxAsString = syntaxHighlight(event);
-
 			return (
 				<li
 					key={event['type'] + i}
@@ -52,88 +51,9 @@ const inputOut = props => {
 
 	return (
 		<div className="inputOut">
-			<p>Input out</p>
 			<ol>{renderedInputs}</ol>
 		</div>
 	);
 };
 
 export default inputOut;
-
-//JSON.stringify(props.inputs)
-
-//{"type":"start","timestamp":3,"select":["min_response_time","max_response_time"],"group":["os","browser"]}
-
-//{"type":"data","timestamp":3,"min_response_time":3, "max_response_time":5, "os":"mac","browser":"safari"]}
-
-//<li key={event['type'] + i}>{JSON.stringify(event)}</li>
-
-/* const typeTest = () => switch (this.props.currentType) {
-    case 'start':
-        options = start;
-        break;
-    case 'span':
-        options = span;
-        break;
-    case 'data':
-        options = data;
-        break;
-    default:
-        break;
-}; */
-/* 
-const typeTest = (event, i) =>{
-    const start = 
-        <li key={event['type'] + i}>
-        {'{'}type{':'}{event["type"]}{','} timestamp{':'}{event["timestamp"]}{','} select{':'}{event["select"]}{','} group{':'}{event["group"]}{'}'}
-        </li>;
-
-    switch (event['type']) {
-        case 'start':
-        theTypeIs = start;
-        break;
-/*         case 'span':
-    theTypeIs = span;
-        break;
-    case 'data':
-    theTypeIs = data;
-        break; 
-    default:
-        break;
-    }
-} */
-/* 
-let theTypeIs = null;
-			const start = (
-				<li key={event['type'] + i}>
-					{'{'}
-					type
-					{':'}
-					{event['type']}
-					{','} timestamp
-					{':'}
-					{event['timestamp']}
-					{','} select
-					{':'}
-					{event['select']}
-					{','} group
-					{':'}
-					{event['group']}
-					{'}'}
-				</li>
-			);
-
-			switch (event['type']) {
-				case 'start':
-					theTypeIs = start;
-					break;
-				/*         case 'span':
-            theTypeIs = span;
-                break;
-            case 'data':
-            theTypeIs = data;
-                break;
-				default:
-					break;
-			}
-			return theTypeIs; */
