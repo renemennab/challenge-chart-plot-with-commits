@@ -1,0 +1,47 @@
+.inputOut {
+	background-color: #2e3440;
+	font-family: 'Source Code Pro', monospace;
+	font-size: 1.4rem;
+	color: white;
+	overflow: hidden;
+	margin-bottom: 4rem;
+}
+
+.inputOut p {
+	margin: 0;
+}
+
+.inputOut ol {
+	margin: 0;
+	list-style: none;
+}
+
+#span_string {
+	color: #c286f1;
+}
+#span_number {
+	color: #10bccb;
+}
+
+.inputOut li {
+	padding: 0.5rem 0;
+	display: block;
+	position: relative;
+	counter-increment: inst;
+}
+.inputOut li::before {
+	content: counter(inst);
+
+	background: #60656e;
+	color: black;
+
+	text-align: center;
+
+	padding-left: 2.25%;
+	left: -5%;
+	height: 100%;
+	width: 2%;
+	position: absolute;
+
+	z-index: 10;
+}
