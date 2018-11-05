@@ -3,6 +3,7 @@ import Header from '../Components/Header/header';
 import InputIn from '../Components/Input/inputIn';
 import InputOut from '../Components/Input/inputOut';
 import Chart from '../Components/Chart/chart';
+import Button from '../Components/Button/button';
 
 class Data extends Component {
 	state = {
@@ -15,12 +16,13 @@ class Data extends Component {
 		currentData: [], //object with the data input responses {min_response_time: 0.1, max_response_time:0.9, os: 'mac', browser: 'chrome' }
 		inputs: [], //array of objects containing all the data from each submit
 		selects: [], //array of strings ['min_response_time', 'max_response_time']
-		groups: [] //array of strings ['os', 'browser']
+		groups: [], //array of strings ['os', 'browser']
+		dataForChart: null
 	};
 
 	componentDidUpdate() {
-		console.log('componentDidUpdate');
-		console.log(this.state.inputs);
+		//console.log('componentDidUpdate');
+		//console.log(this.state.inputs);
 		//console.log(this.state.groups);
 	}
 	//sets the state to the selected type of data to render the other fields accordingly
@@ -143,8 +145,8 @@ class Data extends Component {
 		if (this.state.currentType === 'start') {
 			this.setState({
 				currentType: '',
-				groups: [...this.state.groups, [this.state.currentGroup]],
-				selects: [...this.state.selects, [this.state.currentSelect]]
+				groups: this.state.currentGroup,
+				selects: this.state.currentSelect
 			});
 		} else if (this.state.currentType === 'stop') {
 			this.setState({
@@ -161,6 +163,16 @@ class Data extends Component {
 				currentType: ''
 			});
 		}
+	};
+
+	//function to filter the inputs and return only the data to activate chart
+	filterDataForChartHandler = () => {
+		const onlyData = [...this.state.inputs].filter(
+			el => el['type'] === 'data'
+		);
+		this.setState({
+			dataForChart: onlyData
+		});
 	};
 
 	render() {
@@ -189,13 +201,25 @@ class Data extends Component {
 				<InputOut inputs={this.state.inputs} />
 
 				<Chart
-					inputs={this.state.inputs} //array of objects containing all the data from each submit
+					onlyData={this.state.dataForChart} //array of objects containing all the data from each submit
 					selects={this.state.selects} //array of strings ['min_response_time', 'max_response_time']
 					groups={this.state.groups}
 				/>
+
+				<Button click={this.filterDataForChartHandler} />
 			</div>
 		);
 	}
 }
 
 export default Data;
+
+/* onSubmitHandler = event => {
+    event.preventDefault();
+    this.addEventHandler();
+    if (this.state.currentType === 'start') {
+        this.setState({
+            currentType: '',
+            groups: [...this.state.groups, [this.state.currentGroup]],
+            selects: [...this.state.selects, [this.state.currentSelect]]
+        }); */
