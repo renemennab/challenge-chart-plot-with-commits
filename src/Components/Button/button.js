@@ -3,9 +3,11 @@ import React from 'react';
 
 const button = props => {
 	return (
-		<button className="btn" onClick={props.click}>
-			generate chart
-		</button>
+		<footer>
+			<button className="btn" onClick={props.click}>
+				generate chart
+			</button>
+		</footer>
 	);
 };
 
