@@ -5,8 +5,8 @@ const inputOut = props => {
 	let renderedInputs = null;
 
 	//a function to turn an object into a string separated by spans to make it possible to manipulate it via css
-	//classNames: number, key, string, boolean, null
-	function syntaxHighlight(json) {
+	//ids: number, key, string, boolean, null
+	const syntaxHighlight = json => {
 		if (typeof json != 'string') {
 			json = JSON.stringify(json, undefined, 2);
 		}
@@ -16,8 +16,8 @@ const inputOut = props => {
 			.replace(/>/g, '&gt;');
 		return json.replace(
 			/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g,
-			function(match) {
-				var cls = 'number';
+			match => {
+				let cls = 'number';
 				if (/^"/.test(match)) {
 					if (/:$/.test(match)) {
 						cls = 'key';
@@ -32,8 +32,9 @@ const inputOut = props => {
 				return '<span id="span_' + cls + '">' + match + '</span>';
 			}
 		);
-	}
+	};
 
+	//if statemnt to make shure it only runs after ther is an event in state.inputs
 	if (props.inputs.length > 0) {
 		renderedInputs = props.inputs.map((event, i) => {
 			const jsxAsString = syntaxHighlight(event);
