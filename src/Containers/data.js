@@ -18,6 +18,11 @@ class Data extends Component {
 		groups: [] //array of strings ['os', 'browser']
 	};
 
+	componentDidUpdate() {
+		console.log('componentDidUpdate');
+		console.log(this.state.inputs);
+		//console.log(this.state.groups);
+	}
 	//sets the state to the selected type of data to render the other fields accordingly
 
 	//function to take the section or group input string and turn it into an array
@@ -129,17 +134,19 @@ class Data extends Component {
 		this.setState({
 			inputs: [...this.state.inputs, change]
 		});
-		console.log(this.state.inputs);
 	};
 
 	//function to control what happens when you submmit the inputs
 	onSubmitHandler = event => {
 		event.preventDefault();
 		this.addEventHandler();
-		this.setState({
-			currentType: ''
-		});
-		if (this.state.currentType === 'stop') {
+		if (this.state.currentType === 'start') {
+			this.setState({
+				currentType: '',
+				groups: [...this.state.groups, [this.state.currentGroup]],
+				selects: [...this.state.selects, [this.state.currentSelect]]
+			});
+		} else if (this.state.currentType === 'stop') {
 			this.setState({
 				currentType: '',
 				currentTimestamp: 0,
@@ -148,6 +155,10 @@ class Data extends Component {
 				currentBegin: 0,
 				currentEnd: 0,
 				currentData: []
+			});
+		} else {
+			this.setState({
+				currentType: ''
 			});
 		}
 	};
