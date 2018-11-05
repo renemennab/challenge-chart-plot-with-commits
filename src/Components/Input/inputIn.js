@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-//import './inputIn.css';
+import './inputIn.css';
+
+import NoDivWraper from '../HOC/noDivWraper';
 
 class inputIn extends Component {
 	render() {
@@ -7,7 +9,7 @@ class inputIn extends Component {
 		//console.log('props chart data' + this.props.);
 		//what is to be rendered if state is start
 		let start = (
-			<div>
+			<NoDivWraper>
 				<label htmlFor="select">select</label>
 				<input
 					type="text"
@@ -20,11 +22,11 @@ class inputIn extends Component {
 					name="group"
 					onChange={event => this.props.handleChange(event)}
 				/>
-			</div>
+			</NoDivWraper>
 		);
 		//what is to be rendered if state is span
 		let span = (
-			<div>
+			<NoDivWraper>
 				<label htmlFor="begin">begin</label>
 				<input
 					type="number"
@@ -37,14 +39,14 @@ class inputIn extends Component {
 					name="end"
 					onChange={event => this.props.handleChange(event)}
 				/>
-			</div>
+			</NoDivWraper>
 		);
 		//what is to be rendered if state is data
 		//currentSelect is concatenaded with currentGroup to map the product and return the labels according to the inputs from start
 		let data = this.props.currentSelect
 			.concat(this.props.currentGroup)
 			.map((sl, i) => (
-				<div key={sl + i}>
+				<NoDivWraper key={sl + i}>
 					<label htmlFor={sl}>{sl}</label>
 					<input
 						type="text"
@@ -57,7 +59,7 @@ class inputIn extends Component {
 							)
 						}
 					/>
-				</div>
+				</NoDivWraper>
 			));
 
 		switch (this.props.currentType) {
@@ -75,7 +77,7 @@ class inputIn extends Component {
 		}
 
 		return (
-			<div>
+			<div className="inputIn">
 				<form className="inputIn" onSubmit={this.props.onSubmitHandler}>
 					<label htmlFor="types">types</label>
 					<select
