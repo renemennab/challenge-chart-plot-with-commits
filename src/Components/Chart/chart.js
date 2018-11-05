@@ -1,5 +1,6 @@
 import React from 'react';
 import { Line } from 'react-chartjs-2';
+import './chart.css';
 
 const chart = props => {
 	const colors = [
@@ -119,6 +120,7 @@ const chart = props => {
 					datasets: [...datasetsArray]
 				}}
 				options={{
+					maintainAspectRatio: false,
 					legend: {
 						labels: {
 							fontSize: 12,
