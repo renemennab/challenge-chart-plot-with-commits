@@ -54,7 +54,7 @@ const chart = props => {
 		});
 	};
 
-	//function to add if there is already an objects for that set name
+	//function to add the valie to array if there is already an objects for that set name
 	const addInSetsForCharts = (objName, value) => {
 		setsForCharts.map(ob => {
 			if (ob[objName]) {
@@ -63,6 +63,7 @@ const chart = props => {
 		});
 	};
 
+	//function to map through selects and use addInSetsForCharts function
 	const extractSelects = () => {
 		const setsForChartNames = [];
 		return props.selects.map(s => {
@@ -73,9 +74,12 @@ const chart = props => {
 	/////////////////////////////////////////
 
 	const datasetsArray = [];
+
+	//Function to map through the result from extractSelects and return the datasets for the chart
 	const SplitData = () => {
 		var lineColor = -1;
 		setsForCharts.map(dt => {
+			//logic to make the results always use the colors from the colors array even if there are more sets than colors
 			if (lineColor > colors.length - 2) {
 				lineColor = 0;
 			} else {
@@ -92,6 +96,7 @@ const chart = props => {
 		});
 	};
 
+	//what is rendered if the generate button hasn't been clicked
 	let chart = <h1>no chart yet</h1>;
 
 	if (props.onlyData !== null) {
