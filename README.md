@@ -1,44 +1,70 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Renê's Challenge
 
-## Available Scripts
+In this challenge, i developed a web application that plots a line chart based on some manually input data.
 
-In the project directory, you can run:
+The input data is a sequence of events. The data will be manually input by the final user. Based on the input sequence of events, you may generate a time based line chart containing one or more series.
 
-### `npm start`
+this app is not the full version as it was asked. As i am new to programming i would need a little more time to implement all functions. with that said i made the choice of focusing on delivering something that worked and would still allow you to avaluate my ability and familiarity with tools and best practices.
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+As it is the app can:
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+-   take inputs
+-   render dynamic input fields according to whats asked in the start input after it is submitted
+-   render the inputs as html
+-   and, if the inputs are made correctly, dynamicly generate a chart on the push of a button.
 
-### `npm test`
+## Installation
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+requires node.js
 
-### `npm run build`
+1. Run "npm install" in the folder
+2. Run "npm start" to view the project
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Observations
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+-   right now the chart only uses the inputs from start and data to be generated, but i understand that timestamp, span and stop should act on it as well
+-   it can only take one 'start', but multiple 'data' events
+-   i am confident that with a little more time i could implement all the functionalities, i didn't get stuck on any part but i did take some time to figure out the logic behind it, and because this was my first time developing an app like this i didn't estimate the time correctly.
+-   i didn't have time to write tests, and that is something i am still learning, i have some knowledge of jest but very little
+-   i am also not familiar with the methods to protect the app to deal with huge amounts of data
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## How to use
 
-### `npm run eject`
+1. select the type of event
+2. on event 'start' add the groups and selects as if completing the array (use single quotes) EX: 'min_response_time', 'max_response_time'
+   press ENTER to submit
+3. even though it wont affect the chart, you can select 'span' and render this event
+4. select 'data'. you will see that the answers from 'start' are here rendered as input fields (inputs can be written without quotes)
+5. just like 'span' the 'stop' wont affect the chart, but you can select to reset part of the state and reset 'data'
+6. when you are done, press the button 'generate chart' to make the chart component render
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Features
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+-   project created usin create react app
+-   react-chartjs-2 used to generate chart
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Design Choices
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+I added a input component to make it easier for the user to input the data and for tha app to deal with it.
 
-## Learn More
+as it is not a function that is not essencial for the app to be functional i chose to leave 'draggable to resize' functionallity behind for now
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Possible Future
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+If i were to continue developing the app a would:
+
+add verification to the input fields to make shure it is written conrrectly
+
+make it possible to delete an input that was submitted incorrectly
+
+make the span and stop events fully functional
+
+fix the chart's height
+
+add propTypes to make it less vulnerable
+
+make it possible to generate multiple charts based on the different 'start' events
+
+render an empty chart if there was no data input yet
+
+write tests
