@@ -21,6 +21,7 @@ const chart = props => {
 			if (obj[g]) {
 				return arr1.push(obj[g]);
 			}
+			return null;
 		});
 		return (obj['groupset'] = arr1);
 	};
@@ -46,11 +47,11 @@ const chart = props => {
 				objNames.push(objName);
 				obj1[objName] = [];
 				obj1[objName].push(el[s]);
-				return setsForCharts.push(obj1); //{min_response_time + mac + chrome:[n]}
-				//return obj1[objName].push(el[s]); //{min_response_time + mac + chrome:[n]}
+				return setsForCharts.push(obj1);
 			} else if (el[s] && objNames.indexOf(objName) !== -1) {
-				return addInSetsForCharts(objName, el[s]); //{min_response_time + mac + chrome:[n]}
+				return addInSetsForCharts(objName, el[s]);
 			}
+			return null;
 		});
 	};
 
@@ -60,6 +61,7 @@ const chart = props => {
 			if (ob[objName]) {
 				return ob[objName].push(value);
 			}
+			return null;
 		});
 	};
 
